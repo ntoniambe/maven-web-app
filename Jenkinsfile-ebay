@@ -9,6 +9,7 @@ sh "${mavenHome}/bin/mvn clean package"
 stage('3codequality') {
 sh "${mavenHome}/bin/mvn sonar:sonar"
  }
+ /*
 stage('4UploadsArtifacts') {
 sh "${mavenHome}/bin/mvn deploy"
 }
@@ -28,4 +29,5 @@ input message: 'please verify and approve'
 }
 stage('prod-deploy'){ deploy adapters: [tomcat9(credentialsId: 'TOMCAT-CREDENTIALS', path: '', url: 'http://172.31.31.247:8080/')], contextPath: null, war: 'target/*.war'
 }
+*/
 }
