@@ -1,0 +1,40 @@
+
+node {
+
+def mavenHome = tool name: 'maven 3.8.2'
+
+stage('1clone') {
+git credentialsId: 'GITHUB-CREDENTIALS', url: 'https://github.com/ntoniambe/maven-web-app'
+}
+
+stage('2maven') {
+sh "${mavenHome}/bin/mvn clean package"
+}
+
+stage('3codequality') {
+sh "${mavenHome}/bin/mvn sonar:sonar"
+}
+/*
+stage('4uploadartifacts') {
+sh "${mavenHome}/bin/mvn deploy"
+}
+
+stage('5deployUAT') {
+deploy adapters: [tomcat9(credentialsId: 'TOMCAT-CREDENTIALS', path: '', url: 'http://172.31.31.247:8080/')], contextPath: null, war: 'target/*.war'
+}
+
+stage('6emalinote') {
+emailext body: 'Have a look at this new deployment to see if it suit the project', recipientProviders: [developers()], subject: 'new ambe project'
+}
+
+stage('7Approval') {
+timeout(time:8, unit: 'HOURS') {
+input message: 'pelase verify and approve'
+}
+}
+
+stage('8deploytomcat-prod') {
+deploy adapters: [tomcat9(credentialsId: 'TOMCAT-CREDENTIALS', path: '', url: 'http://172.31.31.247:8080/')], contextPath: null, war: 'target/*.war'
+}
+*/
+}
